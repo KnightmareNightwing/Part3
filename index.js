@@ -39,7 +39,7 @@ const errorHandler = (error, request, response, next) => {
 
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
-        console.log(person)
+        console.log(persons)
         response.json(persons.map(p => p.toJSON()))
     })
 })
