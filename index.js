@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 var morgan = require('morgan')
+const cors = require('cors')
 const Person = require('./models/person')
 
 
@@ -18,6 +19,7 @@ const requestLogger = (request, response, next) => {
 app.use(express.static('dist'))
 app.use(express.json())
 app.use(requestLogger)
+app.use(cors())
 
 morgan.token('body', (req) => { 
     return JSON.stringify(req.body); 
@@ -37,7 +39,7 @@ const errorHandler = (error, request, response, next) => {
 
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
-        response.json(persons)
+        response.json(persons.map(p => p.toJSON()))
     })
 })
 
