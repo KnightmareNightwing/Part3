@@ -1,11 +1,10 @@
-
 const mongoose = require('mongoose')
 
 //const password = process.argv[2]
 
 //const url = `mongodb+srv://fullstack:${password}@cluster0.albupft.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
-const url = process.env.MONGODB.URI
+const url = process.env.MONGODB_URI
 
 mongoose.set('strictQuery',false)
 
@@ -33,4 +32,4 @@ personSchema.set('toJSON', {
   }
 })
 
-model.exports = mongoose.model('Person', personSchema)
+module.exports = mongoose.model('Person', personSchema)
