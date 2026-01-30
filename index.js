@@ -39,9 +39,9 @@ const errorHandler = (error, request, response, next) => {
 
 app.get('/api/persons', (request, response) => {
     Person.find({}).then(persons => {
-        console.log(persons)
-        response.json(persons.map(p => p.toJSON()))
+        response.json(persons)
     })
+   .catch(error => next(error))
 })
 
 app.get('/info', (request, response) => {
@@ -142,3 +142,23 @@ const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+
+
+// app.put('/api/persons/:id', (request, response, next) => {
+//   const body = request.body
+
+//   if (!body.name || !body.number) {
+//     return response.status(400).json({
+//       error: 'name or number is missing'
+//     })
+//   }
+//   console.log(request.params.id)
+
+//   Person.findByIdAndUpdate(
+//     request.params.id,
+//     { name: body.name, number: body.number },
+//     { new: true, runValidators: true, context: 'query' }
+//   )
+//   .then(updatedPerson => response.json(updatedPerson))
+//   .catch(error => next(error))
+// })
